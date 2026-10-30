@@ -66,7 +66,7 @@
   // 拆解片段刚好拼成单词时，给单词分段上色
   function wordHtml(x) {
     var joined = x.parts.map(function (p) { return p[0]; }).join("");
-    var cls = x.w.length > 11 ? "word long" : "word";
+    var cls = x.w.length > 18 ? "word xlong" : x.w.length > 11 ? "word long" : "word";
     if (joined.toLowerCase() === x.w.toLowerCase() && x.parts.length > 1) {
       return '<span class="' + cls + '">' + x.parts.map(function (p, i) { return '<span class="s' + (i % 4) + '">' + esc(p[0]) + "</span>"; }).join("") + "</span>";
     }
@@ -82,6 +82,7 @@
     if (!tts) return "";
     return '<button class="speak' + (small ? " small" : "") + '" data-say="' + esc(text) + '" aria-label="朗读 ' + esc(text) + '">🔊</button>';
   }
+  function ipaHtml(x) { return x.ipa ? '<div class="ipa">/' + esc(x.ipa) + "/</div>" : ""; } // 俚语没有音标
   function meaningHtml(x) { return '<div class="meaning"><span class="pos">' + esc(x.pos) + "</span>" + esc(x.cn) + "</div>"; }
   function detailHtml(x) {
     return partsHtml(x) +
@@ -108,7 +109,7 @@
     stage.innerHTML =
       '<article class="card" id="card">' + topHtml(x, isToday ? '<span class="tag today">今日单词</span>' : "") +
         '<div class="word-row">' + wordHtml(x) + speakBtn(x.w) + "</div>" +
-        '<div class="ipa">/' + esc(x.ipa) + "/</div>" + meaningHtml(x) + detailHtml(x) +
+        ipaHtml(x) + meaningHtml(x) + detailHtml(x) +
         '<button class="mark-btn' + (mastered.has(x.w) ? " on" : "") + '" data-master="' + esc(x.w) + '">' + (mastered.has(x.w) ? "✓ 已掌握" : "标记为已掌握") + "</button>" +
       "</article>" +
       '<div class="nav"><button data-go="-1">← 上一个</button><button class="dice" data-go="rand" aria-label="随机一个">🎲</button><button data-go="1">下一个 →</button></div>' +
@@ -160,7 +161,7 @@
     var left = state.queue.length;
     var html = '<article class="card" id="card">' + topHtml(x) +
       '<div class="word-row">' + wordHtml(x) + speakBtn(x.w) + "</div>" +
-      '<div class="ipa">/' + esc(x.ipa) + "/</div>";
+      ipaHtml(x);
     if (!state.revealed) {
       html += '<p class="hint">先在心里想想它的意思，再看答案</p><button class="reveal-btn" data-reveal="1">显示答案</button>';
     } else {
@@ -206,7 +207,7 @@
     var html = '<article class="card" id="card">' +
       '<div class="score"><span>本轮 ' + s.right + " / " + s.total + "</span><span>连对 " + s.run + " · 最高 " + best + "</span></div>";
     if (q.dir === "en2zh") {
-      html += '<p class="q-prompt">这个词是什么意思？</p><div class="word-row"><span class="q-main">' + esc(x.w) + "</span>" + speakBtn(x.w) + '</div><div class="ipa">/' + esc(x.ipa) + "/</div>";
+      html += '<p class="q-prompt">这个词是什么意思？</p><div class="word-row"><span class="q-main">' + esc(x.w) + "</span>" + speakBtn(x.w) + '</div>' + ipaHtml(x);
     } else {
       html += '<p class="q-prompt">哪个单词是这个意思？</p><div class="q-main zh">' + esc(x.cn) + "</div>";
     }
@@ -218,7 +219,7 @@
     if (q.picked != null) {
       var ok = q.opts[q.picked] === q.answer;
       html += '<div class="explain"><p class="hint">' + (ok ? "✅ 答对了" : "❌ 正确答案是 " + esc(q.answer)) + "</p>" +
-        (q.dir === "zh2en" ? '<div class="word-row">' + wordHtml(x) + speakBtn(x.w) + '</div><div class="ipa">/' + esc(x.ipa) + "/</div>" : meaningHtml(x)) +
+        (q.dir === "zh2en" ? '<div class="word-row">' + wordHtml(x) + speakBtn(x.w) + '</div>' + ipaHtml(x) : meaningHtml(x)) +
         detailHtml(x) + '<button class="primary" data-next="1">下一题</button></div>';
     }
     html += "</article>";
