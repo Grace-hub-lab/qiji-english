@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2f4a8a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="趣记英语">
+  <meta name="description" content="拆词、谐音、词根，有趣地记英语单词">
+  <title>趣记英语</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192-v1.png">
+  <link rel="apple-touch-icon" href="icon-192-v1.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <div class="brand">
+        <h1>趣记英语</h1>
+        <span id="date" class="date"></span>
+      </div>
+      <div class="top-btns">
+        <button id="favViewBtn" class="icon-btn" aria-label="只看收藏" aria-pressed="false">★</button>
+        <button id="settingsBtn" class="icon-btn" aria-label="设置">⚙</button>
+      </div>
+    </header>
+
+    <nav class="modes" role="tablist" aria-label="学习模式">
+      <button class="mode active" data-mode="learn" role="tab" aria-selected="true">📖 学习</button>
+      <button class="mode" data-mode="recall" role="tab" aria-selected="false">🧠 抽背</button>
+      <button class="mode" data-mode="quiz" role="tab" aria-selected="false">🎯 测验</button>
+      <button class="mode" data-mode="daily" role="tab" aria-selected="false">☀️ 一句</button>
+    </nav>
+
+    <div id="filters">
+      <div id="chips" class="chips" role="group" aria-label="分类"></div>
+      <p id="groupDesc" class="group-desc"></p>
+    </div>
+    <div id="toast" class="toast" role="status" hidden></div>
+
+    <main id="stage" class="stage" aria-live="polite"></main>
+
+    <footer class="foot">
+      <div id="stats" class="stats"></div>
+      <p id="quote" class="quote"></p>
+    </footer>
+  </div>
+
+  <div id="settings" class="modal" hidden>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+      <h2 id="setTitle">设置</h2>
+      <fieldset>
+        <legend>发音</legend>
+        <label><input type="radio" name="accent" value="en-US"> 美音</label>
+        <label><input type="radio" name="accent" value="en-GB"> 英音</label>
+      </fieldset>
+      <fieldset>
+        <legend>语速</legend>
+        <label><input type="radio" name="rate" value="1"> 正常</label>
+        <label><input type="radio" name="rate" value="0.7"> 慢速</label>
+      </fieldset>
+      <label class="row"><input type="checkbox" id="autoSpeak"> 切换单词时自动朗读</label>
+      <p id="ttsNote" class="note"></p>
+      <button id="resetBtn" class="ghost danger">清空「已掌握」记录</button>
+      <button id="closeSettings" class="primary">完成</button>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

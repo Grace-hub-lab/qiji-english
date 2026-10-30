@@ -1,0 +1,16 @@
+{
+  "name": "趣记英语",
+  "short_name": "趣记英语",
+  "description": "拆词、谐音、词根，有趣地记英语单词",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f6fb",
+  "theme_color": "#2f4a8a",
+  "lang": "zh-CN",
+  "icons": [
+    { "src": "icon-192-v1.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512-v1.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
