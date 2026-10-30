@@ -1,5 +1,5 @@
 // 网络优先：有网时拿最新内容，没网时用缓存（离线也能背单词）
-const CACHE_VERSION = "qjyy-v3";
+const CACHE_VERSION = "qjyy-v4";
 const ASSETS = ["./", "index.html", "style.css", "app.js", "data.js", "manifest.webmanifest", "icon-192-v1.png", "icon-512-v1.png"];
 
 self.addEventListener("install", (e) => {
